@@ -3,24 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/header.css">
   <link rel="stylesheet" href="/login.css">
   <title>Login</title>
 </head>
 <body>
-    <form action = '/login' method = "POST">
-      <div id = 'username-request'>
-        <label>
-          Username:
-        </label>
-        <input type="text" placeholder = "username" name = 'username'>
-      </div>
-      <div id = 'password-request'>
-        <label>
-          Password:
-        </label>
-        <input type = 'text' placeholder = "password" name = 'password'>
-      </div>
-      <input type = 'submit'>
-    </form>
+  <%- include("header.ejs") %>
+  <main>
+    <div id = 'form-container'>
+      <form action = '/login' method = "POST">
+        <div id = 'username-request'>
+          <label>
+            Username:
+          </label>
+          <input type="text" placeholder = "username" name = 'username'>
+        </div>
+        <div id = 'password-request'>
+          <label>
+            Password:
+          </label>
+          <input type = 'text' placeholder = "password" name = 'password'>
+        </div>
+        <input type = 'submit'>
+      </form>
+    </div>
+  </main>
+    
 </body>
 </html>

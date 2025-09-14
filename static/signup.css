@@ -1,0 +1,35 @@
+
+
+body{
+  display:flex;
+  flex-direction: column;
+}
+
+main{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#form-container{
+  background-color: #8C0000;
+  height: 400px;
+  width:400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+
+#form-container form{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:15px;
+}
+
+label{
+  color: #FFF2F1
+}
