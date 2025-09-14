@@ -11,30 +11,30 @@
 <body>
   <%- include("headerLoggedIn.ejs") %>
   <main>
-    <div class = "account-options" id = 'update'>
+    <a href = '/update' class = 'account-options' id = 'update'>
       <div class = "image-container">
         <img src = 'update.png' class = 'image'>
       </div>
       <div class = "image-caption">
         Update Information
       </div>
-    </div>
-    <div class = "account-options" id = 'change'>
+    </a>
+    <a href = "/changePassword" class = 'account-options'>
       <div class = "image-container">
         <img src = 'password.png' class = 'image'>
       </div>
       <div class = "image-caption">
         Change Password
       </div>
-    </div>
-    <div class = "account-options" id = 'delete'>
+    </a>
+    <a href = '/delete' class = 'account-options' id = 'delete'>
       <div class = "image-container">
         <img src = 'delete.png' class = 'image'>
       </div>
       <div class = "image-caption">
         Delete Account
       </div>
-    </div>
+    </a>
   </main>
 </body>
 </html>

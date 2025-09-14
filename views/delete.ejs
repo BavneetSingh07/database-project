@@ -3,20 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/headerLoggedIn.css">
+  <link rel="stylesheet" href="/delete.css">
   <title>Delete</title>
 </head>
 <body>
-  <div>You Sure?</div>
-  <form action = "/delete" method = "POST">
-    <input type = 'radio' name = 'confirm' value = 'yes'>
-    <label>
-      Yes
-    </label>
-    <input type = 'radio' name = 'confirm' value = 'no'>
-    <label>
-      No
-    </label>
-    <input type = 'submit'>
-  </form>
+  <%- include ("headerLoggedIn.ejs") %>
+  <main>
+    <div id = "confirmation-container">
+      <form action = "/delete" method = "POST">
+        <div>
+          <label>
+            Do You Want To Confirm Deletion?
+          </label>
+        </div>
+        <div id = "options">
+          <div>
+            <input type = 'radio' name = 'confirm' value = 'yes'>
+            <label>
+              Yes
+            </label>
+          </div>
+          <div>
+            <input type = 'radio' name = 'confirm' value = 'no'>
+            <label>
+             No
+            </label>
+          </div>
+        </div>
+        <input type = 'submit'>
+      </form>
+    </div>
+    
+  </main>
 </body>
 </html>

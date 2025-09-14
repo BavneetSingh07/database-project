@@ -117,9 +117,8 @@ app.post('/delete', (req,res) => {
   const choice = req.body.confirm;
 
   if (choice == "no"){
-    return res.redirect('dasboard');
+    return res.redirect('dashboard');
   }
-
   if (choice == "yes"){
     db.query('DELETE FROM userInfo WHERE id = ?', [req.session.userId], (err, results) => {
       if (err) {
@@ -166,19 +165,44 @@ app.post('/signup', (req, res) => {
     if (err) {
       return console.error (err.message);
     }
-    console.log("ADDED LOGIN:", res1[0]);
+    console.log("ADDED LOGIN:", res1);
     db.query ('INSERT INTO userInfo (id, first_name, last_name, date_of_birth, email, address) VALUES (?,?,?,?,?,?)', 
       [res1.insertId, first_name, last_name, dob, email, address], (err, results) => {
       if (err) {
         return console.error (err.message);
       }
-      console.log("ADDED USERINFO:", results[0]);
+      console.log("ADDED USERINFO:", results);
     })
   })
 })
 
 app.get('/account', checkUserLoggedIn, (req,res) =>{
   res.render('account');
+})
+
+app.get('/changePassword', checkUserLoggedIn, (req, res) => {
+  res.render('changePassword');
+})
+
+app.post('/changePassword', checkUserLoggedIn, (req, res) => {
+  const {oldPassword, newPassword} = req.body;
+  db.query ('SELECT password FROM login WHERE id = ?', [req.session.userId], (err, results) =>  {
+    if (err){
+      return console.error(err.message);
+    }
+    if (oldPassword == results[0].password){
+      db.query('UPDATE login SET password = ? WHERE id = ?', [newPassword, req.session.userId], (err, results) => {
+        if (err){
+          return console.error(err.message);
+        }
+        console.log('PASSWORD UPDATED:', results);
+        res.redirect('changePassword');
+      })
+    } else {
+      console.log('password did not match');
+      res.redirect('changePassword');
+    }
+  })
 })
 
 const PORT = 3000;

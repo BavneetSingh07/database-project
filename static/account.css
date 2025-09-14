@@ -20,6 +20,7 @@ main{
   justify-content: center;
   align-items: center;
   gap:20px;
+  transition: tranform 0.5s;
 }
 
 #update{
@@ -56,3 +57,23 @@ main{
   object-fit: cover;
 }
 
+.account-options:link{
+  text-decoration: none;
+  color:#8C0000;
+  font-size: larger;
+  font-weight: bold;
+  box-shadow: 10px 10px 5px gray;
+}
+
+.account-options:visited{
+  text-decoration: none;
+  color:#8C0000;
+  font-size: larger;
+  font-weight: bold;
+  box-shadow: 10px 10px 5px gray;
+}
+
+.account-options:hover{
+  box-shadow: 1px 1px gray;
+  transform:translateX(10px) translateY(10px)
+}
