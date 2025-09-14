@@ -175,7 +175,10 @@ app.post('/signup', (req, res) => {
       console.log("ADDED USERINFO:", results[0]);
     })
   })
- 
+})
+
+app.get('/account', checkUserLoggedIn, (req,res) =>{
+  res.render('account');
 })
 
 const PORT = 3000;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/headerLoggedIn.css">
+  <link rel="stylesheet" href="/account.css">
+  <title>Account</title>
+</head>
+<body>
+  <%- include("headerLoggedIn.ejs") %>
+  <main>
+    <div class = "account-options" id = 'update'>
+      <div class = "image-container">
+        <img src = 'update.png' class = 'image'>
+      </div>
+      <div class = "image-caption">
+        Update Information
+      </div>
+    </div>
+    <div class = "account-options" id = 'change'>
+      <div class = "image-container">
+        <img src = 'password.png' class = 'image'>
+      </div>
+      <div class = "image-caption">
+        Change Password
+      </div>
+    </div>
+    <div class = "account-options" id = 'delete'>
+      <div class = "image-container">
+        <img src = 'delete.png' class = 'image'>
+      </div>
+      <div class = "image-caption">
+        Delete Account
+      </div>
+    </div>
+  </main>
+</body>
+</html>

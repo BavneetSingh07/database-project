@@ -1,0 +1,58 @@
+body{
+  display:flex;
+  flex-direction: column;
+}
+main{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex:1;
+}
+
+.account-options{
+  width:400px;
+  height:500px;
+  border-radius: 20px;
+  background-color: #8C0000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+}
+
+#update{
+  margin-left: 50px;
+}
+
+#delete{
+  margin-right: 50px;
+}
+
+.image-container{
+  height:75%;
+  width:90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #FFF2F1;
+}
+
+.image-caption{
+  background-color: #FFF2F1;;
+  height:10%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.image{
+  height:80%;
+  width:80%;
+  object-fit: cover;
+}
+
