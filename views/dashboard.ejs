@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+</head>
+<body>
+  <header>
+    <div>
+      <a href = '/logout'>
+        Log out
+      </a>
+      <a href = '/update'>
+        Update
+      </a>
+      <a href = '/delete'>
+        Delete
+      </a>
+    </div>
+  </header>
+  <body>
+    <div>
+      <ul>
+        <li>
+          Details
+        </li>
+        <li>
+          First Name: <%= user.first_name%>
+        </li>
+        <li>
+          Last Name: <%= user.last_name%>
+        </li>
+        <li>
+          Date of Birth: <%= user.date_of_birth%>
+        </li>
+        <li>
+          Email: <%= user.email%>
+        </li>
+        <li>
+          Address: <%= user.address%>
+        </li>
+      </ul>
+    </div>
+  </body>
+</body>
+</html>
