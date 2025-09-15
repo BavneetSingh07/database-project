@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/headerLoggedIn.css">
+  <link rel="stylesheet" href="/create.css">
+  <title>Create</title>
+</head>
+<body>
+  <%- include('headerLoggedIn.ejs') %>
+  <main>
+    <div id="form-container">
+      <form action = '/recipes/create' method = 'POST'>
+        <div>
+          <label>
+            Name:
+          </label>
+          <input>
+        </div>
+        <div id = 'description-container'>
+          <label>
+            Description:
+          </label>
+          <textarea id = 'description'></textarea>
+        </div>
+        <div>
+          <label>
+            Ingredients:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Instructions:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Preparation Time:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Cooking Time:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Total Servings:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Calories:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Protein:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Carbohydrates:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Fat:
+          </label>
+          <input>
+        </div>
+        <div>
+          <label>
+            Favourite
+          </label>
+          <input>
+        </div>
+        <input type = 'submit' value = 'create'>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

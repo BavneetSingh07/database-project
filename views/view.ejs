@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/headerLoggedIn.css">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/view.css">
+  <title>My Recipes</title>
+</head>
+<body>
+  <%- include("headerLoggedIn.ejs") %>
+  <main>
+    <div id = "table-container">
+      <table>
+        <tr>
+          <th>
+            Number
+          </th>
+          <th>
+            Name
+          </th>
+          <th>
+            Favourite
+          </th>
+          <th>
+            View
+          </th>
+        </tr>
+        <% recipes.forEach((recipe, index) => { %>
+          <tr>
+            <td>
+              <%= index + 1 %>
+            </td>
+            <td>
+              <%= recipe.name %>
+            </td>
+            <td>
+              <%if (recipe.favourite) {%>
+                *
+              <%} %>
+            </td>
+            <td>
+              <a href = 'recipes/view/<%=recipe.recipe_id%>' class = 'view-links'>
+                View
+              </a>
+            </td>
+          </tr>
+        <%})%>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/headerLoggedIn.css">
+  <link rel="stylesheet" href="/recipes.css">
+  <title>Recipes</title>
+</head>
+<body>
+  <%- include('headerLoggedIn.ejs') %>
+  <main>
+    <a href = '/recipes/create' class = 'recipes-options' id = 'create'>
+      <div class = "image-container">
+        <img src = 'create.png' class = 'image'>
+      </div>
+      <div class = "image-caption">
+        Create Recipe
+      </div>
+    </a>
+    <a href = '/recipes/view' class = 'recipes-options' id = 'view'>
+      <div class = "image-container">
+        <img src = 'view.png' class = 'image'>
+      </div>
+      <div class = "image-caption">
+        View Recipes
+      </div>
+    </a>
+  </main>
+</body>
+</html>

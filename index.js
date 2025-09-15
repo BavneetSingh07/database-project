@@ -205,6 +205,26 @@ app.post('/changePassword', checkUserLoggedIn, (req, res) => {
   })
 })
 
+app.get('/recipes', checkUserLoggedIn, (req, res) => {
+  res.render('recipes');
+})
+
+app.get('/recipes/view', checkUserLoggedIn, (req, res) => {
+  db.query('SELECT * FROM recipes WHERE user_id = ?', [req.session.userId], (err, results) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log(results);
+    res.render('view', {
+    recipes: results
+    });
+  })
+})
+
+app.get('/recipes/create', checkUserLoggedIn, (req, res) => {
+  res.render('create');
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server Listening to http://localhost:${PORT}`)
