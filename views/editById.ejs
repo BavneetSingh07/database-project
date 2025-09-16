@@ -5,85 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/general.css">
   <link rel="stylesheet" href="/headerLoggedIn.css">
-  <link rel="stylesheet" href="/create.css">
+  <link rel="stylesheet" href="/editById.css">
   <title>Create</title>
 </head>
 <body>
   <%- include('headerLoggedIn.ejs') %>
   <main>
     <div id="form-container">
-      <form action = '/recipes/create' method = 'POST'>
+      <form action = '/recipes/edit/<%=recipe.recipe_id%>' method = 'POST'>
         <div>
           <label>
             Name:
           </label>
-          <input type = 'text' name = 'name' required>
+          <input type = 'text' name = 'name' value = '<%=recipe.name%>'required>
         </div>
         <div id = 'description-container'>
           <label>
             Description:
           </label>
-          <textarea id = 'description' name = 'description'></textarea>
+          <textarea id = 'description' name = 'description' value = <%=recipe.description%>></textarea>
         </div>
         <div id = 'ingredients-container'>
           <label>
             Ingredients:
           </label>
-          <textarea id = 'ingredients' name = 'ingredients'></textarea>
+          <textarea id = 'ingredients' name = 'ingredients' value = '<%=recipe.ingredients%>'></textarea>
         </div>
         <div id = 'instructions-container'>
           <label>
             Instructions:
           </label>
-          <textarea id = 'instructions' name = 'instructions'></textarea>
+          <textarea id = 'instructions' name = 'instructions' value = '<%=recipe.instructions%>'></textarea>
         </div>
         <div>
           <label>
             Preparation Time (Minutes):
           </label>
-          <input type = 'number' name = 'prep_time'>
+          <input type = 'number' name = 'prep_time' value = '<%=recipe.prep_time%>'>
         </div>
         <div>
           <label>
             Cooking Time (Minutes):
           </label>
-          <input type = 'number' name = 'cooking_time'>
+          <input type = 'number' name = 'cooking_time' value = '<%= recipe.cooking_time%>'>
         </div>
         <div>
           <label>
             Total Servings:
           </label>
-          <input type = 'number' name = 'total_servings'>
+          <input type = 'number' name = 'total_servings' value = '<%=recipe.total_servings%>'>
         </div>
         <div>
           <label>
             Calories:
           </label>
-          <input type = 'number' name = 'calories'>
+          <input type = 'number' name = 'calories' value = '<%=recipe.calories%>'>
         </div>
         <div>
           <label>
             Protein:
           </label>
-          <input type = 'number' name = 'protein' step = 0.01>
+          <input type = 'number' name = 'protein' step = 0.01 value = '<%=recipe.protein%>'>
         </div>
         <div>
           <label>
             Carbohydrates:
           </label>
-          <input type = 'number' name = 'carbohydrates' step = 0.01>
+          <input type = 'number' name = 'carbohydrates' step = 0.01 value = '<%=recipe.carbohydrates%>'>
         </div>
         <div>
           <label>
             Fat:
           </label>
-          <input type = 'number' name = 'fat' step = 0.01>
+          <input type = 'number' name = 'fat' step = 0.01 value = '<%=recipe.fat%>'>
         </div>
         <div>
           <label>
             Favourite
           </label>
-          <input type = 'checkbox' name = 'favourite' value = 'yes'>
+          <input type = 'checkbox' name = 'favourite' value = 'yes' 
+          <% if (recipe.favourite ==1){ %>
+            checked
+         <%}%>
+         >
         </div>
         <div>
           <input type = 'submit' value = 'create' id = 'create'>

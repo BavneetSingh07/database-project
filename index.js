@@ -263,7 +263,7 @@ app.post('/recipes/create', checkUserLoggedIn, (req,res) => {
   req.body.fat = DecimalToNullable(req.body.fat);
   const {name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat} = req.body;
   let favourite;
-  if (req.body.favourite == 'yes'){
+  if (req.body.favourite){
     favourite = 1;
   } else {
     favourite = 0;
@@ -274,8 +274,69 @@ app.post('/recipes/create', checkUserLoggedIn, (req,res) => {
         return console.error(err.message);
       }
       console.log(results);
+      res.redirect('/recipes/view');
     })
+  
 })
+
+app.get('/recipes/view/:recipe_id', checkUserLoggedIn, (req, res) => {
+  const recipe_id = req.params.recipe_id;
+  db.query('SELECT * FROM recipes WHERE recipe_id = ?', [recipe_id], (err, results) => {
+    if (err){
+      return console.error(err.message);
+    }
+    console.log(results);
+    res.render('viewById', {
+      recipe: results[0]
+    })
+  })
+})
+
+app.get('/recipes/delete/:recipe_id', checkUserLoggedIn, (req, res) => {
+  const recipe_id = req.params.recipe_id;
+  db.query('SELECT recipe_id, name FROM recipes WHERE recipe_id = ?', [recipe_id], (err, results) => {
+    if (err){
+      return console.error(err.message);
+    }
+    console.log(results);
+    res.render('deleteById', {
+    recipe_id: results[0].recipe_id,
+    name: results[0].name
+    });
+  })
+})
+
+app.post('/recipes/delete/:recipe_id', checkUserLoggedIn, (req, res) => {
+  console.log(req.body);
+  const choice = req.body.confirm;
+  const recipe_id = req.params.recipe_id;
+  if (choice == 'no'){
+    return res.redirect(`/recipes/view/${recipe_id}`)
+  }
+  if (choice == 'yes'){
+    db.query('DELETE FROM recipes WHERE recipe_id = ?', [recipe_id], (err, results) =>{
+      if (err){
+        return console.error(err.message);
+      }
+      console.log(results);
+    })
+    res.redirect('/recipes/view');
+  }
+})
+
+app.get('/recipes/edit/:recipe_id', checkUserLoggedIn, (req,res) => {
+  const recipe_id = req.params.recipe_id;
+  db.query('SELECT * FROM recipes WHERE recipe_id = ?', [recipe_id], (err, results) => {
+    if (err){
+      return console.error(err.message);
+    }
+    console.log(results);
+    res.render('editById', {
+      recipe: results[0]
+    });
+  })
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server Listening to http://localhost:${PORT}`)

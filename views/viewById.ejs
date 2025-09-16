@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/headerLoggedIn.css">
+  <link rel="stylesheet" href="/viewById.css">
+  <title><%= recipe.name %></title>
+</head>
+<body>
+  <%- include('headerLoggedIn.ejs') %>
+  <main>
+    <div id = 'view-container'>
+      <ul>
+        <li>Name: <%=recipe.name%> </li>
+        <li>Description: <%=recipe.description%></li>
+        <li>Ingredients: <%=recipe.ingredients %></li>
+        <li>Instructions: <%=recipe.instructions%></li>
+        <li>Preparation Time: <%=recipe.prep_time%> </li>
+        <li>Cooking Time: <%=recipe.cooking_time%></li>
+        <li>Total Servings: <%=recipe.total_servings%> </li>
+        <li>Calories: <%=recipe.calories%></li>
+        <li>Protein: <%=recipe.protein%></li>
+        <li>Carbohydrates: <%=recipe.carbohydrates%> </li>
+        <li>Fat: <%=recipe.fat%></li>
+        <li>Name: <%=recipe.name%> </li>
+        <li>
+          Favourite: 
+          <%if (recipe.favourite == 1){%>
+            Yes
+          <%} else {%>
+            No
+          <%}%>
+        </li>
+      </ul>
+      <div id = 'options-container'>
+        <a href = '/recipes/edit/<%=recipe.recipe_id%>' id = 'edit' class = 'options'>
+          Edit
+        </a>
+        <a href = '/recipes/delete/<%=recipe.recipe_id%>' id = 'delete' class = 'options'>
+          Delete
+        </a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

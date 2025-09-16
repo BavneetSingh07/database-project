@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/general.css">
   <link rel="stylesheet" href="/headerLoggedIn.css">
-  <link rel="stylesheet" href="/delete.css">
-  <title>Delete</title>
+  <link rel="stylesheet" href="/deleteById.css">
+  <title>Delete Recipe</title>
 </head>
 <body>
   <%- include ("headerLoggedIn.ejs") %>
   <main>
     <div id = "confirmation-container">
-      <form action = "/delete" method = "POST">
+      <form action = "/recipes/delete/<%=recipe_id%>" method = "POST">
         <div>
           <label>
-            Do You Want To Confirm Deletion?
+            Confirm Deletion of Recipe '<%=name%>'
           </label>
         </div>
         <div id = "options">
@@ -35,7 +35,6 @@
         <input type = 'submit'>
       </form>
     </div>
-    
   </main>
 </body>
 </html>
