@@ -2,6 +2,7 @@ const ejs = require('ejs');
 const express = require('express');
 const mysql = require('mysql2')
 const session = require('express-session');
+const Decimal = require ('decimal.js')
 
 const app = express();
 
@@ -11,6 +12,29 @@ app.use(session({
   saveUninitialized: false,
 }));
 
+function ToNullable (value){
+  if (value === '') {
+    return null;
+  } else {
+    return value;
+  }
+}
+
+function NumberToNullable (value){
+  if (value === '') {
+    return null;
+  } else {
+    return Number(value);
+  }
+}
+
+function DecimalToNullable (value){
+  if (value === '') {
+    return null;
+  } else {
+    return Decimal(value);
+  }
+}
 
 const db = mysql.createConnection({
   host:'127.0.0.1',
@@ -225,6 +249,33 @@ app.get('/recipes/create', checkUserLoggedIn, (req, res) => {
   res.render('create');
 })
 
+app.post('/recipes/create', checkUserLoggedIn, (req,res) => {
+  console.log(req.body);
+  req.body.description = ToNullable(req.body.description);
+  req.body.ingredients = ToNullable(req.body.ingredients);
+  req.body.instructions = ToNullable (req.body.instructions);
+  req.body.prep_time = NumberToNullable(req.body.prep_time);
+  req.body.cooking_time = NumberToNullable(req.body.cooking_time);
+  req.body.total_servings = NumberToNullable(req.body.total_servings);
+  req.body.calories = NumberToNullable(req.body.calories);
+  req.body.protein = DecimalToNullable(req.body.protein);
+  req.body.carbohydrates = DecimalToNullable(req.body.carbohydrates);
+  req.body.fat = DecimalToNullable(req.body.fat);
+  const {name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat} = req.body;
+  let favourite;
+  if (req.body.favourite == 'yes'){
+    favourite = 1;
+  } else {
+    favourite = 0;
+  }
+  db.query('INSERT INTO recipes (user_id, name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat, favourite) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,? ,?, ?, ?, ?)',
+    [req.session.userId, name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat, favourite], (err, results) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(results);
+    })
+})
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server Listening to http://localhost:${PORT}`)

@@ -4,7 +4,6 @@ body{
 }
 
 main{
-  flex:1;
   display:flex;
   flex-direction: row;
   justify-content: center;
@@ -12,8 +11,8 @@ main{
 }
 
 #form-container{
-  height:550px;
-  width: 400px;
+  margin-top: 20px;
+  width: 500px;
   background-color: #8C0000;
   display:flex;
   flex-direction: row;
@@ -28,14 +27,47 @@ main{
   flex-direction: column;
   justify-content: center;
   gap:10px;
+  padding:20px;
 }
 
 #description{
   height:100px;
+  flex:1;
 }
 
 #description-container{
   display: flex;
   flex-direction: row;
   align-items: start;
+}
+
+#ingredients{
+  height:100px;
+  flex:1;
+}
+
+#ingredients-container{
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+#instructions{
+  height:100px;
+  flex: 1;
+}
+
+#instructions-container{
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+#form-container form div{
+  display: flex;
+  flex-direction: row;
+}
+#form-container form div input{
+  margin-left: 10px;
+  flex:1;
 }
