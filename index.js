@@ -122,8 +122,14 @@ app.get('/update', checkUserLoggedIn, (req,res) =>{
 })
 
 app.post('/update', (req, res) => {
+  let dob;
+  if (!req.body.date_of_birth || req.body.date_of_birth == "0"){
+    dob = null;
+  } else {
+    dob = req.body.date_of_birth;
+  }
   db.query ('UPDATE userInfo SET first_name = ?, last_name = ?, date_of_birth = ?, email = ?, address = ? WHERE id = ?',
-    [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.email, req.body.address, req.session.userId], 
+    [req.body.first_name, req.body.last_name, dob, req.body.email, req.body.address, req.session.userId], 
     (err, results) => {
       if (err) {
         return console.error(err.message);
@@ -141,21 +147,33 @@ app.post('/delete', (req,res) => {
   const choice = req.body.confirm;
 
   if (choice == "no"){
-    return res.redirect('dashboard');
+    return res.redirect('/dashboard');
   }
   if (choice == "yes"){
+    db.query('DELETE FROM recipes WHERE user_id = ?', [req.session.userId], (err, results) => {
+      if (err) {
+        return console.error (err.message);
+      }
+      console.log("DELETE FROM RECIPES TABLE: ", results);
+    })
     db.query('DELETE FROM userInfo WHERE id = ?', [req.session.userId], (err, results) => {
       if (err) {
         return console.error (err.message);
       }
-      console.log("DELETE FROM USERINFO TABLE: ", results[0]);
+      console.log("DELETE FROM USERINFO TABLE: ", results);
     })
     db.query('DELETE FROM login WHERE id = ?', [req.session.userId], (err, results) => {
       if (err) {
         return console.error (err.message);
       }
-      console.log("DELETE FROM LOGIN TABLE: ", results[0]);
+      console.log("DELETE FROM LOGIN TABLE: ", results);
     })
+    req.session.destroy((err => {
+      if (err){
+        return console.error(err.message);
+      }
+      res.redirect('/login');
+    }))
   }
 })
 
@@ -196,6 +214,7 @@ app.post('/signup', (req, res) => {
         return console.error (err.message);
       }
       console.log("ADDED USERINFO:", results);
+      res.redirect('/login');
     })
   })
 })
