@@ -2,7 +2,9 @@ const ejs = require('ejs');
 const express = require('express');
 const mysql = require('mysql2')
 const session = require('express-session');
-const Decimal = require ('decimal.js')
+const Decimal = require ('decimal.js');
+
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -35,6 +37,16 @@ function DecimalToNullable (value){
     return Decimal(value);
   }
 }
+
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.messages = {
+    success: req.flash('success'),
+    error: req.flash('error')
+  }
+
+  next();
+})
 
 const db = mysql.createConnection({
   host:'127.0.0.1',
@@ -138,7 +150,7 @@ app.post('/update', (req, res) => {
     })
 })
 
-app.get('/delete', checkUserLoggedIn, (req,res) => {
+app.get('/delete', checkUserLoggedIn, (req, res) => {
   res.render('delete');
 })
 
@@ -354,6 +366,35 @@ app.get('/recipes/edit/:recipe_id', checkUserLoggedIn, (req,res) => {
       recipe: results[0]
     });
   })
+})
+
+app.post('/recipes/edit/:recipe_id', checkUserLoggedIn, (req,res) => {
+  const recipe_id = req.params.recipe_id;
+  req.body.description = ToNullable(req.body.description);
+  req.body.ingredients = ToNullable(req.body.ingredients);
+  req.body.instructions = ToNullable (req.body.instructions);
+  req.body.prep_time = NumberToNullable(req.body.prep_time);
+  req.body.cooking_time = NumberToNullable(req.body.cooking_time);
+  req.body.total_servings = NumberToNullable(req.body.total_servings);
+  req.body.calories = NumberToNullable(req.body.calories);
+  req.body.protein = DecimalToNullable(req.body.protein);
+  req.body.carbohydrates = DecimalToNullable(req.body.carbohydrates);
+  req.body.fat = DecimalToNullable(req.body.fat);
+  const {name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat} = req.body;
+  let favourite;
+  if (req.body.favourite){
+    favourite = 1;
+  } else {
+    favourite = 0;
+  }
+  db.query('UPDATE recipes SET user_id = ?, name = ?, description = ?, ingredients = ?, instructions = ?, prep_time = ?, cooking_time = ?, total_servings = ?, calories = ?, protein  = ?, carbohydrates = ?, fat = ?, favourite = ? WHERE recipe_id = ?', 
+    [req.session.userId, name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat, favourite, recipe_id], (err, results) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(results);
+      res.redirect(`/recipes/view/${recipe_id}`);
+    })
 })
 
 const PORT = 3000;

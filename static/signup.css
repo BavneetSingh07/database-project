@@ -14,7 +14,7 @@ main{
 
 #form-container{
   background-color: #8C0000;
-  height: 350px;
+  height: 500px;
   width: 350px;
   display: flex;
   justify-content: center;
@@ -27,8 +27,5 @@ main{
   flex-direction: column;
   justify-content: center;
   gap:15px;
-}
-
-label{
-  color: #FFF2F1
+  color:#FFF2F1
 }

@@ -23,7 +23,16 @@
           <label>
             Password:
           </label>
-          <input type = 'text' name = "password" required>
+          <input type = 'text' name = "password" required pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+          <div id = 'password-criteria-container'>
+            <ul>
+              <li>Minimum 8 Characters</li>
+              <li>At least 1 Uppercase Letter</li>
+              <li>At least 1 Lowercase Letter</li>
+              <li>At least 1 Number</li>
+              <li>At least 1 Special Character</li>
+            </ul>
+          </div>
         </div>
         <div>
           <label>
