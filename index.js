@@ -429,6 +429,18 @@ app.post('/recipes/edit/:recipe_id', checkUserLoggedIn, (req,res) => {
     })
 })
 
+app.get('/favourites', checkUserLoggedIn, (req, res) => {
+  db.query('SELECT * FROM recipes WHERE favourite = 1 AND user_id = ?', [req.session.userId], (err, results) => {
+    if (err){
+      return console.error(err.message);
+    }
+    console.log(results);
+    res.render('favourites', {
+      favourite_recipes:results
+    })
+  })
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server Listening to http://localhost:${PORT}`)
