@@ -95,8 +95,14 @@ app.post('/login', (req,res) =>{
       })
     }
     console.log("RESULT:", results);
-    if (results[0].password == password){
+    if (results[0] && results[0].password == password){
       req.session.userId = results[0].id;
+      db.query('UPDATE login SET last_logged_in = NOW() where id = ?', [req.session.userId], (err,results) =>{
+        if (err){
+          return console.error(err.message);
+        }
+        console.log("RESULTS AFTER LOGIN IS PROCESSED:", results);
+      })
       res.redirect('/dashboard');
     } else {
       res.send('login unsuccessful');
@@ -190,17 +196,43 @@ app.post('/delete', (req,res) => {
 })
 
 app.get('/dashboard', checkUserLoggedIn, (req, res) => {
-  db.query('SELECT * FROM userInfo where id = ?', [req.session.userId], (err, results) => {
+  db.query('SELECT COUNT(*) FROM recipes WHERE user_id = ?', [req.session.userId], (err, res1) => {
     if (err){
-      return res.render('error', {
-        error: "Query couldn't be accessed"
-      })
+      return console.error(err.message);
     }
-    console.log(results[0]);
-    res.render('dashboard', {
-      user: results[0]
-    });
-  });
+    console.log("TOTAL RECIPES:", res1);
+    db.query('SELECT COUNT(*) FROM recipes WHERE favourite = 1 and user_id = ?', [req.session.userId], (err,res2) => {
+      if (err){
+        return console.error(err.message);
+      }
+      console.log("TOTAL FAVOURITES: ",res2);
+      db.query('SELECT last_logged_in FROM login WHERE id = ?', [req.session.userId], (err,res3) => {
+        if (err){
+          return console.error(err.message);
+        }
+        console.log("LAST LOGGED IN:", res3);
+        db.query('SELECT SUM(calories) FROM RECIPES WHERE user_id = ?', [req.session.userId], (err,res4) => {
+          if (err){
+            return console.error(err.message);
+          }
+          console.log("TOTAL CALORIES:", res4);
+          db.query('SELECT * FROM recipes WHERE user_id = ? ORDER BY recipe_id DESC LIMIT 1', [req.session.userId], (err,res5) => {
+            if (err){
+              return console.error(err.message);
+            }
+            console.log("MOST RECENT RECIPE:", res5);
+            res.render('dashboard', {
+              total_recipes: res1[0]['COUNT(*)'],
+              total_favourites: res2[0]['COUNT(*)'],
+              last_logged_in: res3[0].last_logged_in,
+              total_calories: res4[0]['SUM(calories)'],
+              most_recent_recipe: res5[0]
+            })
+          })
+        })
+      })
+    })
+  })
 });
 
 app.get('/signup', (req, res) => {

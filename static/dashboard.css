@@ -1,0 +1,165 @@
+body{
+  display:flex;
+  flex-direction: column;
+}
+main{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex:1;
+}
+
+.big-card{
+  background-color: #8C0000;
+  height:550px;
+  width:300px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap:5px;
+  border-radius: 20px;
+}
+
+.big-card-title{
+  background-color: #FFF2F1;
+  height:8%;
+  width:90%;
+  margin-top: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  font-weight: bold;
+  color:#8C0000;
+}
+
+main a:link{
+  text-decoration: none;
+  color:#8C0000;
+  box-shadow: 10px 10px 5px gray;
+}
+
+main a:hover{
+  color: #8C0000;
+  text-decoration: underline;
+  box-shadow: 1px 1px gray;
+  transform:translateX(10px) translateY(10px)
+}
+
+.big-card-image{
+  background-color: #FFF2F1;
+  height:70%;
+  width:90%;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.big-card-image img{
+  width:90%;
+  height:90%;
+  object-fit: contain;
+}
+
+.big-card-caption{
+  background-color: #FFF2F1;
+  height:8%;
+  width:90%;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color:#8C0000;
+  font-size: large;
+  font-weight: bold;
+}
+
+#big-card-1{
+  margin-left:50px;
+}
+
+.small-card-container{
+  height:550px;
+  width:600px;
+  margin-right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.small-card{
+  background-color: #8C0000;
+  width:600px;
+  height:150px;
+  border-radius: 20px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.small-card-image-container{
+ background-color: #FFF2F1;
+ height:80%;
+ width:22%;
+ margin-left: 15px;
+ border-radius: 15px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.small-card-image-container img{
+  width:90%;
+  height:90%;
+  object-fit: contain;
+ }
+.small-card-caption-container{
+  height:80%;
+  width:70%;
+  margin-right: 15px;
+  border-radius: 15px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.small-card-caption-container:link{
+  text-decoration: none;
+  color:#8C0000;
+  font-size: large;
+  font-weight: bold;
+}
+
+.small-card-caption-title{
+  background-color: #FFF2F1;
+  width:100%;
+  height:30%;
+  border-radius: 15px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color: #8C0000;
+  font-size: large;
+  font-weight: bold;
+}
+.small-card-caption-content{
+  background-color: #FFF2F1;
+  width:100%;
+  height:60%;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8C0000;
+  font-size: large;
+  font-weight: bold;
+}
+
+#most-recent-recipe-container ul{
+  list-style-type: none;
+}

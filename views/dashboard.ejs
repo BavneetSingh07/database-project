@@ -11,29 +11,87 @@
 <body>
   <%- include("headerLoggedin.ejs") %>
   <main>
-    <div>
-      <ul>
-        <li>
-          Details
-        </li>
-        <li>
-          First Name: <%= user.first_name%>
-        </li>
-        <li>
-          Last Name: <%= user.last_name%>
-        </li>
-        <li>
-          Date of Birth: <%= user.date_of_birth%>
-        </li>
-        <li>
-          Email: <%= user.email%>
-        </li>
-        <li>
-          Address: <%= user.address%>
-        </li>
-      </ul>
+    <a class = 'big-card' id = 'big-card-1' href = '/recipes/view'>
+      <div id = 'recipe-count-title' class = 'big-card-title'>
+        Recipes Count
+      </div>
+      <div id = 'recipe-count-image' class = 'big-card-image'>
+        <img src = '/recipe.png'>
+      </div>
+      <div id = 'recipe-count-caption' class = 'big-card-caption'>
+        <%=total_recipes%>
+      </div>
+    </a>
+    
+    <a class = 'big-card' id = 'big-card-2' href = '/favourites'>
+      <div id = 'favourite-count-title' class = 'big-card-title'>
+        Favourite Count
+      </div>
+      <div id = 'favourite-count-image' class = 'big-card-image'>
+        <img src = '/star.png'>      
+      </div>
+      <div id = 'favourite-count-caption' class = 'big-card-caption'>
+        <%=total_favourites%>
+      </div>
+    </a>
+
+    <div class = 'small-card-container'>
+      <a class = 'small-card' href = '/recipes/view'>
+        <div class = 'small-card-image-container'>
+          <img src="/calorie.png">
+        </div>
+        <div class = 'small-card-caption-container'>
+          <div class = 'small-card-caption-title'>
+            Total Calories In All Recipes
+          </div>
+          <div class = 'small-card-caption-content'>
+            <% if (total_calories == null) { %>
+              0
+            <%} else {%>
+              <%=total_calories%>
+            <%}%>
+          </div>
+        </div>
+      </a>
+      <a class = 'small-card' href = '/recipes/view'>
+        <div class = 'small-card-image-container'>
+          <img src="/recipe.png">
+        </div>
+        <div class = 'small-card-caption-container'>
+          <div class = 'small-card-caption-title'>
+            Most Recent Recipe Added
+          </div>
+          <div class = 'small-card-caption-content' id = 'most-recent-recipe-container'>
+            <ul>
+              <li>Name: <%=most_recent_recipe.name%></li>
+              <% if (most_recent_recipe.calories == null) { %>
+                <li>Calories: 0</li>
+              <%} else {%>
+                <li>Calories: <%=most_recent_recipe.calories%></li>
+              <%}%>
+              <% if (most_recent_recipe.favourite == 1){ %>
+                <li>Favourite: Yes</li>
+              <%} else {%>
+                <li>Favourite: No</li>
+              <%}%>
+            </ul>
+          </div>
+        </div>
+      </a>
+      <a class = 'small-card' href = '/account'>
+        <div class = 'small-card-image-container'>
+          <img src="/last-logged-in.png">
+        </div>
+        <div class = 'small-card-caption-container'>
+          <div class = 'small-card-caption-title'>
+            Last Logged In
+          </div>
+          <div class = 'small-card-caption-content'>
+            <%=last_logged_in%>
+          </div>
+        </div>
+      </a>
     </div>
   </main>
-    
 </body>
 </html>
