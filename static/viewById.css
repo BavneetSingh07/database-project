@@ -16,29 +16,29 @@ main{
 ul{
   list-style-type: none;
 }
-#options-container{
+#view-options-container{
   display:flex;
   flex-direction: row;
   width:100%;
   justify-content: space-around;
 }
 
-.options{
+.view-options{
   color: #FFF2F1;
   text-decoration: none;
 }
 
-.options:link{
+.view-options:link{
   color: #FFF2F1;
   text-decoration: none;
 }
 
-.options:visited{
+.view-options:visited{
   color: #FFF2F1;
   text-decoration: none;
 }
 
-.options:hover{
+.view-options:hover{
   color: #FFF2F1;
   text-decoration: underline;
 }
