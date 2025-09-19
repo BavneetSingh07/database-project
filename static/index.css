@@ -1,0 +1,153 @@
+html {
+  scroll-behavior: smooth;
+}
+#hero-section{
+  width:100vw;
+  height:670px;
+  display: flex;
+  flex-direction: row;
+}
+#hero-section-left{
+  flex:1;
+  background-color: #FFE5E3;
+  color: #8C0000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#big-title{
+  font-weight: bolder;
+}
+
+#big-title h1{
+  font-size: 80px;
+  text-align: center;
+}
+
+#small-title{
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 60px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#CTA-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 75px;
+  width:500px;
+}
+#CTA-buttons form input{
+  background-color: #8C0000;
+  color: #FFF2F1;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#CTA-buttons form input:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+
+#read-more{
+  height:60px;
+  width:150px;
+}
+
+#signup{
+  height:60px;
+  width:150px;
+}
+#hero-section-right{
+  flex:1;
+}
+#hero-section-right img{
+  height:100%;
+  width:100%;
+  object-fit: cover;
+}
+#overview-section{
+  background-color:#FFF2F1;
+  width:100vw;
+  height:550px;
+  text-align: center;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display:flex;
+  flex-direction: row;
+}
+#overview{
+  color:#8C0000;
+  font-weight: bold;
+  font-size: 70px;
+  margin-top: 10px;
+}
+
+#card-container{
+  flex:1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#card{
+  background-color:#8C0000;
+  height: 90%;
+  width:70%;
+  border-radius: 20px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#information-container{
+  flex:2;
+  margin-right: 10px;
+}
+
+#image{
+  background-color: #FFF2F1;
+  height:85%;
+  width:90%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+#image img{
+  width:90%;
+  height: 90%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+#caption{
+  background-color: #FFF2F1;
+  width:90%;
+  border-radius: 15px;
+  height:5%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#information{
+  margin-top: 10px;
+}
+
+ul{
+  list-style-type: none;
+}
+
+footer{
+  margin-top: 10px;
+  margin-left: 10px;
+}

@@ -10,6 +10,59 @@
 </head>
 <body>
   <%- include ("header.ejs") %>
-
+  <main>
+    <section id = 'hero-section'>
+      <div id = 'hero-section-left'>
+        <div id = 'big-title'>
+          <h1>Make Recipe Tracking Easier</h1>
+        </div>
+        <div id = 'small-title'>
+          Organise, Create and Never Forget Your Recipes
+        </div>
+        <div id = 'CTA-buttons'>
+          <form action = '/signup' method = "GET">
+            <input type = 'submit' value = 'Join Now' id = 'signup'>
+          </form>
+          <form action = '#overview-section' method = "GET">
+            <input type = 'submit' value = 'Read More' id = 'read-more'>
+          </form>
+        </div>
+      </div>
+      <div id = 'hero-section-right'>
+        <img src = '/hero-section-image.jpg'>
+      </div>
+    </section>
+    <section id = 'overview-section'>
+      <div id = 'card-container'>
+        <div id = 'card'>
+          <div id = 'image'>
+            <img src = '/me.png'>
+          </div>
+          <div id = 'caption'>
+            2nd Year Computer Science BSc
+          </div>
+        </div>
+      </div>
+      <div id = 'information-container'>
+        <div id = 'overview'>Overview</div>
+        <div id = 'information'>
+          <p>
+            This project was inspired by my first-year university experience. As a computer science student, my “experiments” didn't happen in the lab, they happened in the kitchen of my student accommodation. It was the first time I had real freedom in a kitchen, so I spent that year trying new cuisines, failing often, succeeding sometimes, and constantly learning. One frustration stood out: when I created a great recipe, it was easily forgotten. Finding recipes online was a hassle because I had to remember the exact website, exact recipe, and exact instructions. At the same time, I was learning about databases and dynamic websites at university. In the summer of 2025, I thought: why not combine the two? Instead of relying on pen and paper, I could build a website to manage recipes, something that's always with me, like my laptop.
+          </p>
+          <h1>What This Website Does</h1>
+          <p>
+            This application allows users to create and manage their own recipes along with their nutritional information. It brings the simplicity of pen and paper into a digital, always-available format.
+          </p>
+          <h1>Core Features (Version 1)</h1>
+          <p>
+            The website supports full CRUD functionality for recipes, allowing users to create, read, update, and delete entries. It includes a secure login system for managing personal accounts, as well as the ability to update user information. Users can mark and revisit their favourite recipes and also keep track of the nutritional information for each dish.
+          </p>
+        </div>
+      </div>
+    </section>
+    <footer>
+      Bavneet Singh. All rights reserved.
+    </footer>
+  </main>
 </body>
 </html>
