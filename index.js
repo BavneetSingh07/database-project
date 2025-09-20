@@ -3,13 +3,14 @@ const express = require('express');
 const mysql = require('mysql2')
 const session = require('express-session');
 const Decimal = require ('decimal.js');
-
 const flash = require('connect-flash');
+
+require('dotenv').config();
 
 const app = express();
 
 app.use(session({
-  secret: 'Ijustknowihavetocreateasuperlargestringforthis',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
 }));
@@ -49,10 +50,10 @@ app.use((req, res, next) => {
 })
 
 const db = mysql.createConnection({
-  host:'127.0.0.1',
-  user: 'root',
-  password: 'royalarsenal121-',
-  database: 'database_project_1',
+  host:process.env.DB_HOST,
+  user:process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   dateStrings: true
 });
 
@@ -105,7 +106,7 @@ app.post('/login', (req,res) =>{
       })
       res.redirect('/dashboard');
     } else {
-      res.send('login unsuccessful');
+      res.redirect('/login');
     }
   })
 })
