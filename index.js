@@ -110,6 +110,7 @@ app.post('/login', (req,res) =>{
               return console.error(err.message);
             }
             console.log(res2);
+            req.flash('success', 'Logged In Successfully');
             res.redirect('/dashboard')
           })
         } else {
@@ -164,6 +165,7 @@ app.post('/update', (req, res) => {
       if (err) {
         return console.error(err.message);
       }
+      req.flash('success', 'Updated User Information Successfully')
       res.redirect('/dashboard');
     })
 })
@@ -308,10 +310,12 @@ app.post('/changePassword', checkUserLoggedIn, (req, res) => {
               return console.error(err.message);
             }
             console.log('UPDATED THE PASSWORD:', results);
+            req.flash('success', 'Password Changed Successfully')
             res.redirect('/changePassword');
           })
         })
       } else {
+        req.flash('error', 'Password Does Not Match')
         res.redirect('/changePassword')
       }
     })
@@ -363,6 +367,7 @@ app.post('/recipes/create', checkUserLoggedIn, (req,res) => {
         return console.error(err.message);
       }
       console.log(results);
+      req.flash('success', 'Recipe Created Successfully')
       res.redirect('/recipes/view');
     })
   
@@ -409,6 +414,7 @@ app.post('/recipes/delete/:recipe_id', checkUserLoggedIn, (req, res) => {
       }
       console.log(results);
     })
+    req.flash('success', 'Recipe Deleted Successfully')
     res.redirect('/recipes/view');
   }
 })
@@ -451,6 +457,7 @@ app.post('/recipes/edit/:recipe_id', checkUserLoggedIn, (req,res) => {
         return console.error(err.message);
       }
       console.log(results);
+      req.flash('success', 'Recipe Editted Successfully')
       res.redirect(`/recipes/view/${recipe_id}`);
     })
 })

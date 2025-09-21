@@ -1,0 +1,10 @@
+<%if (messages.success.length){%>
+  <div class = 'success-alert-container'>
+    <p class = 'success-alert'><%=messages.success[0]%></p>
+  </div>
+<%}%>
+<% if (messages.error.length){%>
+  <div class = 'error-alert-container'>
+    <p class = 'error-alert'><%=messages.error[0]%></p>
+  </div>
+<%}%>
