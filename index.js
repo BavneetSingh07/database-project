@@ -114,10 +114,12 @@ app.post('/login', (req,res) =>{
             res.redirect('/dashboard')
           })
         } else {
+          req.flash('error', 'Username or Password Incorrect')
           res.redirect('/login')
         }
       })
     } else {
+      req.flash('error','Username or Password Incorrect')
       res.redirect('/login');
     }
   })
@@ -132,12 +134,10 @@ const checkUserLoggedIn = (req, res, next) => {
 };
 
 app.get('/logout', (req, res) => {
-  req.session.destroy((err => {
-    if (err){
-      return console.error(err.message);
-    }
-    res.redirect('/login');
-  }))
+  req.session.userId = null;
+  req.flash('success', 'Logged Out Successfully');
+  res.redirect('/login');
+  console.log('LOGGED OUT');
 })
 
 app.get('/update', checkUserLoggedIn, (req,res) =>{
@@ -200,12 +200,9 @@ app.post('/delete', (req,res) => {
       }
       console.log("DELETE FROM LOGIN TABLE: ", results);
     })
-    req.session.destroy((err => {
-      if (err){
-        return console.error(err.message);
-      }
-      res.redirect('/login');
-    }))
+    req.session.userId = null;
+    req.flash('success', 'Account Deleted Succesfully')
+    res.redirect('/login');
   }
 })
 
@@ -261,22 +258,32 @@ app.post('/signup', (req, res) => {
   } else {
     dob = req.body.date_of_birth;
   }
-  bcrypt.hash(password, saltRounds, (err, hash) => {
+  db.query('SELECT * FROM login WHERE username = ?', [username], (err, results) => {
     if (err){
       return console.error(err.message);
     }
-    db.query ('INSERT INTO login (username, password) VALUES (?,?)', [username, hash], (err, res1) => {
-      if (err) {
-        return console.error (err.message);
+    if (results[0]){
+      req.flash('error', "Username Is Already Taken");
+      return res.redirect('/signup')
+    }
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err){
+        return console.error(err.message);
       }
-      console.log("ADDED LOGIN:", res1);
-      db.query ('INSERT INTO userInfo (id, first_name, last_name, date_of_birth, email, address) VALUES (?,?,?,?,?,?)', 
-        [res1.insertId, first_name, last_name, dob, email, address], (err, results) => {
+      db.query ('INSERT INTO login (username, password) VALUES (?,?)', [username, hash], (err, res1) => {
         if (err) {
           return console.error (err.message);
         }
-        console.log("ADDED USERINFO:", results);
-        res.redirect('/login');
+        console.log("ADDED LOGIN:", res1);
+        db.query ('INSERT INTO userInfo (id, first_name, last_name, date_of_birth, email, address) VALUES (?,?,?,?,?,?)', 
+          [res1.insertId, first_name, last_name, dob, email, address], (err, results) => {
+          if (err) {
+            return console.error (err.message);
+          }
+          console.log("ADDED USERINFO:", results);
+          req.flash('success', 'User Signed Up Successfully');
+          res.redirect('/login');
+        })
       })
     })
   })
