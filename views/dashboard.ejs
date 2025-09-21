@@ -63,16 +63,22 @@
           </div>
           <div class = 'small-card-caption-content' id = 'most-recent-recipe-container'>
             <ul>
-              <li>Name: <%=most_recent_recipe.name%></li>
-              <% if (most_recent_recipe.calories == null) { %>
+              <li>
+                Name:<% if (most_recent_recipe){ %>
+                  <%=most_recent_recipe.name%>
+                <%}%>
+              </li>
+              <% if (!most_recent_recipe || most_recent_recipe.calories == null) { %>
                 <li>Calories: 0</li>
               <%} else {%>
                 <li>Calories: <%=most_recent_recipe.calories%></li>
               <%}%>
-              <% if (most_recent_recipe.favourite == 1){ %>
-                <li>Favourite: Yes</li>
-              <%} else {%>
-                <li>Favourite: No</li>
+              <% if (most_recent_recipe){%>
+                <%if (most_recent_recipe.favourite == 1){%>
+                  <li>Favourite: Yes</li>
+                <%} else {%>
+                  <li>Favourite:No</li>
+                <%}%>
               <%}%>
             </ul>
           </div>

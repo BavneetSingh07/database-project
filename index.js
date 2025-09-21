@@ -4,6 +4,9 @@ const mysql = require('mysql2')
 const session = require('express-session');
 const Decimal = require ('decimal.js');
 const flash = require('connect-flash');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 
 require('dotenv').config();
 
@@ -91,20 +94,28 @@ app.post('/login', (req,res) =>{
   const {password} = req.body;
   db.query('SELECT * FROM login WHERE username = ?', [username], (err, results) => {
     if (err){
-      return res.render('error', {
-        error: "Query couldn't be accessed"
-      })
+      return console.error(err.message);
     }
     console.log("RESULT:", results);
-    if (results[0] && results[0].password == password){
-      req.session.userId = results[0].id;
-      db.query('UPDATE login SET last_logged_in = NOW() where id = ?', [req.session.userId], (err,results) =>{
+    if (results[0]){
+      const hashedPassword = results[0].password;
+      bcrypt.compare(password, hashedPassword, (err, result) => {
         if (err){
           return console.error(err.message);
         }
-        console.log("RESULTS AFTER LOGIN IS PROCESSED:", results);
+        if (result){
+          req.session.userId = results[0].id;
+          db.query('UPDATE login SET last_logged_in = NOW() WHERE id = ?', [req.session.userId], (err, res2) =>{
+            if (err){
+              return console.error(err.message);
+            }
+            console.log(res2);
+            res.redirect('/dashboard')
+          })
+        } else {
+          res.redirect('/login')
+        }
       })
-      res.redirect('/dashboard');
     } else {
       res.redirect('/login');
     }
@@ -248,18 +259,23 @@ app.post('/signup', (req, res) => {
   } else {
     dob = req.body.date_of_birth;
   }
-  db.query ('INSERT INTO login (username, password) VALUES (?,?)', [username, password], (err, res1) => {
-    if (err) {
-      return console.error (err.message);
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err){
+      return console.error(err.message);
     }
-    console.log("ADDED LOGIN:", res1);
-    db.query ('INSERT INTO userInfo (id, first_name, last_name, date_of_birth, email, address) VALUES (?,?,?,?,?,?)', 
-      [res1.insertId, first_name, last_name, dob, email, address], (err, results) => {
+    db.query ('INSERT INTO login (username, password) VALUES (?,?)', [username, hash], (err, res1) => {
       if (err) {
         return console.error (err.message);
       }
-      console.log("ADDED USERINFO:", results);
-      res.redirect('/login');
+      console.log("ADDED LOGIN:", res1);
+      db.query ('INSERT INTO userInfo (id, first_name, last_name, date_of_birth, email, address) VALUES (?,?,?,?,?,?)', 
+        [res1.insertId, first_name, last_name, dob, email, address], (err, results) => {
+        if (err) {
+          return console.error (err.message);
+        }
+        console.log("ADDED USERINFO:", results);
+        res.redirect('/login');
+      })
     })
   })
 })
@@ -278,18 +294,27 @@ app.post('/changePassword', checkUserLoggedIn, (req, res) => {
     if (err){
       return console.error(err.message);
     }
-    if (oldPassword == results[0].password){
-      db.query('UPDATE login SET password = ? WHERE id = ?', [newPassword, req.session.userId], (err, results) => {
-        if (err){
-          return console.error(err.message);
-        }
-        console.log('PASSWORD UPDATED:', results);
-        res.redirect('changePassword');
-      })
-    } else {
-      console.log('password did not match');
-      res.redirect('changePassword');
-    }
+    bcrypt.compare(oldPassword, results[0].password, (err, result) => {
+      if (err){
+        return console.error(err.message);
+      }
+      if (result){
+        bcrypt.hash(newPassword, saltRounds, (err, hash) => {
+          if (err){
+            return console.error(err.message);
+          }
+          db.query('UPDATE login SET password = ? WHERE id = ?', [hash, req.session.userId], (err, results) => {
+            if (err){
+              return console.error(err.message);
+            }
+            console.log('UPDATED THE PASSWORD:', results);
+            res.redirect('/changePassword');
+          })
+        })
+      } else {
+        res.redirect('/changePassword')
+      }
+    })
   })
 })
 
