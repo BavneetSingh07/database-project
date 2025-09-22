@@ -13,6 +13,7 @@ This project was inspired by my first year of university, where I experimented w
 - Express Session used to Remember Logged-In Users
 - Input Validation for Emails and Passwords
 - Length Validation for All Other Fields of Input
+- User Feedback For Actions Through Alerts
 
 ## Environmental Variables 
 
