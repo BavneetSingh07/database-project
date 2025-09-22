@@ -70,9 +70,7 @@ db.connect((err) =>{
 });
 
 app.use((err, req, res, next) => {
-  res.render('error', {
-    error: "Error Occured"
-  })
+  res.send('error');
 })
 
 app.set('view engine', 'ejs');
