@@ -111,6 +111,4 @@ node index.js
 - AI Integration with Auto-completing Fields For Recipes
 - Ratings For Recipes
 - Categories/Tags For Public Recipes
-- User Usage Records
 - Search Functionality for Efficiency
-- Responsive User Interface
