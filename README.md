@@ -128,6 +128,8 @@ Users can delete their account from the database
 - Express-Session (For User Authentication)
 
 ## Screenshots
+### Sign Up and Login
+![Login Screenshot](Login_screenshot.png)
 
 ## Demo
 
