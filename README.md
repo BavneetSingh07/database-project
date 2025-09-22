@@ -89,8 +89,6 @@ node index.js
 ```
 ## Usage
 
-
-
 ## Technologies
 
 - HTML and CSS (For Front-end Development)
@@ -106,3 +104,13 @@ node index.js
 ## Demo
 
 ## Future Improvements
+
+- Confirming Password
+- API Integration for Ingredients
+- Shopping List for Ingredients
+- AI Integration with Auto-completing Fields For Recipes
+- Ratings For Recipes
+- Categories/Tags For Public Recipes
+- User Usage Records
+- Search Functionality for Efficiency
+- Responsive User Interface
