@@ -1,8 +1,8 @@
-#Recipe Tracker
+# Recipe Tracker
 
 This project was inspired by my first year of university, where I experimented with different recipes trying to make them perfect. Tracking these recipes was a very forgetful task, it required additional effort writing everything out. For this problem, using independant learning and first year university, I designed a full-stack application that allows users to authenticate themselves, create,read, update and delete recipes effectively.
 
-##Features
+## Features
 
 - User Authentication (Signup and Login/Logout)
 - Password Encryption Through Hashing
@@ -14,11 +14,11 @@ This project was inspired by my first year of university, where I experimented w
 - Input Validation for Emails and Passwords
 - Length Validation for All Other Fields of Input
 
-##Installation
+## Installation
 
-##Usage
+## Usage
 
-##Environmental Variables
+# Environmental Variables
 
 - SESSION_SECRET (String to Encrypt Sessions)
 - DB_HOST (Host for Database)
@@ -26,7 +26,7 @@ This project was inspired by my first year of university, where I experimented w
 - DB_PASSWORD (Password for Database)
 - DB_DATABASE (Database Name)
 
-##Technologies
+## Technologies
 
 - HTML and CSS (For Front-end Development)
 - Nodejs (For Backend JavaScript)
@@ -36,3 +36,4 @@ This project was inspired by my first year of university, where I experimented w
 - Bcrypt (For Password Encryption)
 - Express-Session (For User Authentication)
 
+## Future Improvements
