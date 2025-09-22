@@ -129,10 +129,10 @@ Users can delete their account from the database
 
 ## Screenshots
 ### Sign Up and Login
-![Sign Up Screenshot](Signup_screenshot.png)
-![Login Screenshot](Login_screenshot.png)
+![Sign Up Screenshot](Screenshots/Signup_screenshot.png)
+![Login Screenshot](Screenshots/Login_screenshot.png)
 ### Dashboard/Recipe View
-![Dashboard](Dashboard_screenshot.png)
+![Dashboard](Screenshots/Dashboard_screenshot.png)
 ## Demo
 
 ## Future Improvements
