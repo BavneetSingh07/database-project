@@ -89,6 +89,34 @@ node index.js
 ```
 ## Usage
 
+1. Sign Up
+Users can create an account if they're not signed up on the application 
+
+2. Log In
+Users can log into to the application to access their recipes
+
+3. View Recipes
+Users can view their list of created recipes
+
+4. Create Recipes
+Users can create recipes by filling in the fields on the form and submitting
+
+5. Update Recipes
+Users can update their existing recipes by editing the fields and submitting
+
+6. Delete Recipes
+Users can delete recipes when they're no longer required
+
+7. Update User Information
+Users can update existing information about themselves
+
+8. Delete Account
+Users can delete their account from the database
+
+9. Additional Features
+- Users can view all the recipes they have favourited
+- Users can change their password 
+
 ## Technologies
 
 - HTML and CSS (For Front-end Development)
@@ -106,9 +134,8 @@ node index.js
 ## Future Improvements
 
 - Confirming Password
+- Ratings For Recipes
 - API Integration for Ingredients
 - Shopping List for Ingredients
 - AI Integration with Auto-completing Fields For Recipes
-- Ratings For Recipes
-- Categories/Tags For Public Recipes
 - Search Functionality for Efficiency
