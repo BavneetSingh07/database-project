@@ -140,8 +140,6 @@ Users can delete their account from the database
 ![Edit Recipe](Screenshots/Edit_recipe_screenshot.png)
 ![Delete Recipe](Screenshots/Delete_recipe_screenshot.png)
 
-## Demo
-
 ## Future Improvements
 
 - Confirming Password
