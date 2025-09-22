@@ -14,17 +14,82 @@ This project was inspired by my first year of university, where I experimented w
 - Input Validation for Emails and Passwords
 - Length Validation for All Other Fields of Input
 
-## Installation
-
-## Usage
-
-# Environmental Variables
+## Environmental Variables 
 
 - SESSION_SECRET (String to Encrypt Sessions)
 - DB_HOST (Host for Database)
 - DB_USER (User for Database)
 - DB_PASSWORD (Password for Database)
 - DB_DATABASE (Database Name)
+
+## Setup
+### Code Setup
+1. git clone https://github.com/BavneetSingh07/database-project.git
+2. npm install
+3. create .env file (containing all variables listed above)
+
+### Database Setup
+1. Create Database
+```sql
+CREATE DATABASE recipe_tracker;
+```
+2. Create Tables (login, userInfo, recipes)
+- login Table
+```sql
+CREATE TABLE `login` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `last_logged_in` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+);
+```
+
+- userInfo Table
+```sql
+CREATE TABLE `userInfo` (
+  `id` int unsigned NOT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `userinfo_ibfk_1` FOREIGN KEY (`id`) REFERENCES `login` (`id`)
+);
+```
+
+- recipes Table
+```sql
+CREATE TABLE `recipes` (
+  `recipe_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` mediumtext,
+  `ingredients` mediumtext,
+  `instructions` mediumtext,
+  `prep_time` int DEFAULT NULL,
+  `cooking_time` int DEFAULT NULL,
+  `total_servings` int DEFAULT NULL,
+  `calories` int DEFAULT NULL,
+  `protein` decimal(5,2) DEFAULT NULL,
+  `carbohydrates` decimal(5,2) DEFAULT NULL,
+  `fat` decimal(5,2) DEFAULT NULL,
+  `favourite` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`recipe_id`),
+  KEY `recipes_ibfk_1` (`user_id`),
+  CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `login` (`id`)
+);
+```
+### Server Startup
+**Run the following command in terminal**
+**```bash
+node index.js
+```
+## Usage
+
+
 
 ## Technologies
 
@@ -35,5 +100,9 @@ This project was inspired by my first year of university, where I experimented w
 - MySQL (For Storing Data)
 - Bcrypt (For Password Encryption)
 - Express-Session (For User Authentication)
+
+## Screenshots
+
+## Demo
 
 ## Future Improvements
