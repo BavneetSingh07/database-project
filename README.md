@@ -84,7 +84,7 @@ CREATE TABLE `recipes` (
 ```
 ### Server Startup
 **Run the following command in terminal**
-**```bash
+```bash
 node index.js
 ```
 ## Usage
