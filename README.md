@@ -131,6 +131,8 @@ Users can delete their account from the database
 ### Sign Up and Login
 ![Sign Up Screenshot](Signup_screenshot.png)
 ![Login Screenshot](Login_screenshot.png)
+### Dashboard/Recipe View
+![Dashboard](Dashboard_screenshot.png)
 ## Demo
 
 ## Future Improvements

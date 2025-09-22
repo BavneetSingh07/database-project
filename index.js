@@ -38,7 +38,7 @@ function DecimalToNullable (value){
   if (value === '') {
     return null;
   } else {
-    return Decimal(value);
+    return Decimal(value).toFixed(1);
   }
 }
 
