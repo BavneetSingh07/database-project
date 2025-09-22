@@ -129,10 +129,17 @@ Users can delete their account from the database
 
 ## Screenshots
 ### Sign Up and Login
-![Sign Up Screenshot](Screenshots/Signup_screenshot.png)![Login Screenshot](Screenshots/Login_screenshot.png)
-### Dashboard/Recipe View
+![Sign Up Screenshot](Screenshots/Signup_screenshot.png)
+![Login Screenshot](Screenshots/Login_screenshot.png)
+### Dashboard/Recipe View/Favourites
 ![Dashboard](Screenshots/Dashboard_screenshot.png)
-!
+![Recipe List](Screenshots/Recipe_list_screenshot.png)
+![Favourites](Screenshots/Favourite_screenshot.png)
+### View/Edit/Delete Recipes
+![View Recipe](Screenshots/View_recipe_screenshot.png)
+![Edit Recipe](Screenshots/Edit_recipe_screenshot.png)
+![Delete Recipe](Screenshots/Delete_recipe_screenshot.png)
+
 ## Demo
 
 ## Future Improvements
