@@ -69,10 +69,6 @@ db.connect((err) =>{
   
 });
 
-app.use((err, req, res, next) => {
-  res.send('error');
-})
-
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/static'));
 
@@ -92,6 +88,7 @@ app.post('/login', (req,res) =>{
   const {password} = req.body;
   db.query('SELECT * FROM login WHERE username = ?', [username], (err, results) => {
     if (err){
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     console.log("RESULT:", results);
@@ -99,12 +96,14 @@ app.post('/login', (req,res) =>{
       const hashedPassword = results[0].password;
       bcrypt.compare(password, hashedPassword, (err, result) => {
         if (err){
+          res.status(500).send("Internal Server Error");
           return console.error(err.message);
         }
         if (result){
           req.session.userId = results[0].id;
           db.query('UPDATE login SET last_logged_in = NOW() WHERE id = ?', [req.session.userId], (err, res2) =>{
             if (err){
+              res.status(500).send("Internal Server Error");
               return console.error(err.message);
             }
             console.log(res2);
@@ -141,6 +140,7 @@ app.get('/logout', (req, res) => {
 app.get('/update', checkUserLoggedIn, (req,res) =>{
   db.query('SELECT * from userInfo where id = ?', [req.session.userId], (err, results) =>{
     if (err) {
+      res.status(500).send("Internal Server Error");
       return console.error (err.message);
     }
     console.log(results[0])
@@ -161,6 +161,7 @@ app.post('/update', (req, res) => {
     [req.body.first_name, req.body.last_name, dob, req.body.email, req.body.address, req.session.userId], 
     (err, results) => {
       if (err) {
+        res.status(500).send("Internal Server Error");
         return console.error(err.message);
       }
       req.flash('success', 'Updated User Information Successfully')
@@ -182,18 +183,21 @@ app.post('/delete', (req,res) => {
   if (choice == "yes"){
     db.query('DELETE FROM recipes WHERE user_id = ?', [req.session.userId], (err, results) => {
       if (err) {
+        res.status(500).send("Internal Server Error");
         return console.error (err.message);
       }
       console.log("DELETE FROM RECIPES TABLE: ", results);
     })
     db.query('DELETE FROM userInfo WHERE id = ?', [req.session.userId], (err, results) => {
       if (err) {
+        res.status(500).send("Internal Server Error");
         return console.error (err.message);
       }
       console.log("DELETE FROM USERINFO TABLE: ", results);
     })
     db.query('DELETE FROM login WHERE id = ?', [req.session.userId], (err, results) => {
       if (err) {
+        res.status(500).send("Internal Server Error");
         return console.error (err.message);
       }
       console.log("DELETE FROM LOGIN TABLE: ", results);
@@ -207,26 +211,31 @@ app.post('/delete', (req,res) => {
 app.get('/dashboard', checkUserLoggedIn, (req, res) => {
   db.query('SELECT COUNT(*) FROM recipes WHERE user_id = ?', [req.session.userId], (err, res1) => {
     if (err){
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     console.log("TOTAL RECIPES:", res1);
     db.query('SELECT COUNT(*) FROM recipes WHERE favourite = 1 and user_id = ?', [req.session.userId], (err,res2) => {
       if (err){
+        res.status(500).send("Internal Server Error");
         return console.error(err.message);
       }
       console.log("TOTAL FAVOURITES: ",res2);
       db.query('SELECT last_logged_in FROM login WHERE id = ?', [req.session.userId], (err,res3) => {
         if (err){
+          res.status(500).send("Internal Server Error");
           return console.error(err.message);
         }
         console.log("LAST LOGGED IN:", res3);
         db.query('SELECT SUM(calories) FROM RECIPES WHERE user_id = ?', [req.session.userId], (err,res4) => {
           if (err){
+            res.status(500).send("Internal Server Error");
             return console.error(err.message);
           }
           console.log("TOTAL CALORIES:", res4);
           db.query('SELECT * FROM recipes WHERE user_id = ? ORDER BY recipe_id DESC LIMIT 1', [req.session.userId], (err,res5) => {
             if (err){
+              res.status(500).send("Internal Server Error");
               return console.error(err.message);
             }
             console.log("MOST RECENT RECIPE:", res5);
@@ -258,6 +267,7 @@ app.post('/signup', (req, res) => {
   }
   db.query('SELECT * FROM login WHERE username = ?', [username], (err, results) => {
     if (err){
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     if (results[0]){
@@ -266,16 +276,19 @@ app.post('/signup', (req, res) => {
     }
     bcrypt.hash(password, saltRounds, (err, hash) => {
       if (err){
+        res.status(500).send("Internal Server Error");
         return console.error(err.message);
       }
       db.query ('INSERT INTO login (username, password) VALUES (?,?)', [username, hash], (err, res1) => {
         if (err) {
+          res.status(500).send("Internal Server Error");
           return console.error (err.message);
         }
         console.log("ADDED LOGIN:", res1);
         db.query ('INSERT INTO userInfo (id, first_name, last_name, date_of_birth, email, address) VALUES (?,?,?,?,?,?)', 
           [res1.insertId, first_name, last_name, dob, email, address], (err, results) => {
           if (err) {
+            res.status(500).send("Internal Server Error");
             return console.error (err.message);
           }
           console.log("ADDED USERINFO:", results);
@@ -299,19 +312,23 @@ app.post('/changePassword', checkUserLoggedIn, (req, res) => {
   const {oldPassword, newPassword} = req.body;
   db.query ('SELECT password FROM login WHERE id = ?', [req.session.userId], (err, results) =>  {
     if (err){
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     bcrypt.compare(oldPassword, results[0].password, (err, result) => {
       if (err){
+        res.status(500).send("Internal Server Error");
         return console.error(err.message);
       }
       if (result){
         bcrypt.hash(newPassword, saltRounds, (err, hash) => {
           if (err){
+            res.status(500).send("Internal Server Error");
             return console.error(err.message);
           }
           db.query('UPDATE login SET password = ? WHERE id = ?', [hash, req.session.userId], (err, results) => {
             if (err){
+              res.status(500).send("Internal Server Error");
               return console.error(err.message);
             }
             console.log('UPDATED THE PASSWORD:', results);
@@ -334,6 +351,7 @@ app.get('/recipes', checkUserLoggedIn, (req, res) => {
 app.get('/recipes/view', checkUserLoggedIn, (req, res) => {
   db.query('SELECT * FROM recipes WHERE user_id = ?', [req.session.userId], (err, results) => {
     if (err) {
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     console.log(results);
@@ -369,6 +387,7 @@ app.post('/recipes/create', checkUserLoggedIn, (req,res) => {
   db.query('INSERT INTO recipes (user_id, name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat, favourite) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,? ,?, ?, ?, ?)',
     [req.session.userId, name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat, favourite], (err, results) => {
       if (err) {
+        res.status(500).send("Internal Server Error");
         return console.error(err.message);
       }
       console.log(results);
@@ -382,6 +401,7 @@ app.get('/recipes/view/:recipe_id', checkUserLoggedIn, (req, res) => {
   const recipe_id = req.params.recipe_id;
   db.query('SELECT * FROM recipes WHERE recipe_id = ?', [recipe_id], (err, results) => {
     if (err){
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     console.log(results);
@@ -395,6 +415,7 @@ app.get('/recipes/delete/:recipe_id', checkUserLoggedIn, (req, res) => {
   const recipe_id = req.params.recipe_id;
   db.query('SELECT recipe_id, name FROM recipes WHERE recipe_id = ?', [recipe_id], (err, results) => {
     if (err){
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     console.log(results);
@@ -428,6 +449,7 @@ app.get('/recipes/edit/:recipe_id', checkUserLoggedIn, (req,res) => {
   const recipe_id = req.params.recipe_id;
   db.query('SELECT * FROM recipes WHERE recipe_id = ?', [recipe_id], (err, results) => {
     if (err){
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     console.log(results);
@@ -459,6 +481,7 @@ app.post('/recipes/edit/:recipe_id', checkUserLoggedIn, (req,res) => {
   db.query('UPDATE recipes SET user_id = ?, name = ?, description = ?, ingredients = ?, instructions = ?, prep_time = ?, cooking_time = ?, total_servings = ?, calories = ?, protein  = ?, carbohydrates = ?, fat = ?, favourite = ? WHERE recipe_id = ?', 
     [req.session.userId, name, description, ingredients, instructions, prep_time, cooking_time, total_servings, calories, protein, carbohydrates, fat, favourite, recipe_id], (err, results) => {
       if (err) {
+        res.status(500).send("Internal Server Error");
         return console.error(err.message);
       }
       console.log(results);
@@ -470,6 +493,7 @@ app.post('/recipes/edit/:recipe_id', checkUserLoggedIn, (req,res) => {
 app.get('/favourites', checkUserLoggedIn, (req, res) => {
   db.query('SELECT * FROM recipes WHERE favourite = 1 AND user_id = ?', [req.session.userId], (err, results) => {
     if (err){
+      res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
     console.log(results);
@@ -477,6 +501,14 @@ app.get('/favourites', checkUserLoggedIn, (req, res) => {
       favourite_recipes:results
     })
   })
+})
+
+app.use((req,res,next) => {
+  res.status(404).send('Page Not Found')
+})
+app.use((err, req, res, next) => {
+  console.error(err.message);
+  res.status(500).send('Internal Server Error');
 })
 
 const PORT = 3000;
