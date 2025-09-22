@@ -146,6 +146,6 @@ Users can delete their account from the database
 - Confirming Password
 - Ratings For Recipes
 - API Integration for Ingredients
-- Shopping List for Ingredients
 - AI Integration with Auto-completing Fields For Recipes
 - Search Functionality for Efficiency
+- Responsive User Interface
