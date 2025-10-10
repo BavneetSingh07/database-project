@@ -94,7 +94,7 @@ node index.js
 Users can create an account if they're not signed up on the application 
 
 2. Log In
-Users can log into to the application to access their recipes
+Users can log into the application to access their recipes
 
 3. View Recipes
 Users can view their list of created recipes
