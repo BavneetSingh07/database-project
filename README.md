@@ -26,7 +26,10 @@ This project was inspired by my first year of university, where I experimented w
 ## Setup
 ### Code Setup
 1. git clone https://github.com/BavneetSingh07/database-project.git
-2. npm install
+2. 
+```bash
+npm install
+```
 3. create .env file (containing all variables listed above)
 
 ### Database Setup
