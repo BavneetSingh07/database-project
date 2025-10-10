@@ -6,14 +6,14 @@ This project was inspired by my first year of university, where I experimented w
 
 - User Authentication (Signup and Login/Logout)
 - Password Encryption Through Hashing
-- Create, Read, Update, Delete User Information
-- Create, Read, Update, Delete Recipes
+- Create, Read, Update and Delete User Information
+- Create, Read, Update and Delete Recipes
 - Generalised and Specific Route Error Handling
-- Environmental Variables for Database Setup Information and Session Secret Key
-- Express Session used to Remember Logged-In Users
+- Environmental Variables for Database Configuration and Session Secret Key
+- Express-Session used to Remember Logged-In Users
 - Input Validation for Emails and Passwords
 - Length Validation for All Other Fields of Input
-- User Feedback For Actions Through Alerts
+- User Feedback for Actions Through Alerts
 
 ## Environmental Variables 
 
