@@ -24,6 +24,7 @@ This project was inspired by my first year of university, where I experimented w
 - DB_PASSWORD (Password for Database)
 - DB_DATABASE (Database Name)
 - PORT (Local Server Port Number)
+- DB_PORT - Optional (Database Server Port Number; only required for live deployment) 
 
 ## Local Deployment Setup
 ### Code Setup
