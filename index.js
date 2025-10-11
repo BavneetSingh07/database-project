@@ -138,6 +138,10 @@ app.post('/login', (req,res) =>{
       res.status(500).send("Internal Server Error");
       return console.error(err.message);
     }
+    if (!results){
+      req.flash('error', 'Did not work')
+      return res,redirect('/login');
+    }
     console.log("RESULT:", results);
     if (results[0]){
       const hashedPassword = results[0].password;
