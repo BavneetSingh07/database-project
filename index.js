@@ -152,7 +152,7 @@ app.post('/login', (req,res) =>{
     }
     if (!results){
       req.flash('error', 'Did not work')
-      return res,redirect('/login');
+      return res.redirect('/login');
     }
     console.log("RESULT:", results);
     if (results[0]){
