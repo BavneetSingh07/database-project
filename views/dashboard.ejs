@@ -47,7 +47,7 @@
             Total Calories In All Recipes
           </div>
           <div class = 'small-card-caption-content'>
-            <% if (total_calories == null) { %>
+            <% if (total_calories == null||!total_calories) { %>
               0
             <%} else {%>
               <%=total_calories%>

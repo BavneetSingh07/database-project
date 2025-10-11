@@ -564,5 +564,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(`Server is Listening to port${PORT}`);
+  console.log(`Server is Listening to http://127.0.0.1:${PORT}`);
 })
