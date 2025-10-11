@@ -22,8 +22,9 @@ This project was inspired by my first year of university, where I experimented w
 - DB_USER (User for Database)
 - DB_PASSWORD (Password for Database)
 - DB_DATABASE (Database Name)
+- PORT (Local Server Port Number)
 
-## Setup
+## Local Deployment Setup
 ### Code Setup
 1. git clone https://github.com/BavneetSingh07/database-project.git
 2. 

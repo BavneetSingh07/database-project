@@ -8,47 +8,58 @@
   <link rel="stylesheet" href="/favourites.css">
   <title>My Recipes</title>
 </head>
-<body>
-  <%- include("headerLoggedIn.ejs") %>
-  <main>
-    <div id = "table-container">
-      <table>
-        <tr>
-          <th>
-            Number
-          </th>
-          <th>
-            Name
-          </th>
-          <th>
-            Favourite
-          </th>
-          <th>
-            View
-          </th>
-        </tr>
-        <% favourite_recipes.forEach((recipe, index) => { %>
+<%if (favourite_recipes.length==0){%>
+  <body id = 'no-favourites-body'>
+    <%- include("headerLoggedIn.ejs") %>
+    <main id="no-favourites-main">
+      <div>
+        No Favourites Found!
+      </div>
+    </main>
+  </body>
+<%} else {%>
+  <body id = 'favourites-body'>
+    <%- include("headerLoggedIn.ejs") %>
+    <main>
+      <div id = "table-container">
+        <table>
           <tr>
-            <td>
-              <%= index + 1 %>
-            </td>
-            <td>
-              <%= recipe.name %>
-            </td>
-            <td>
-              <%if (recipe.favourite) {%>
-                *
-              <%} %>
-            </td>
-            <td>
-              <a href = '/recipes/view/<%=recipe.recipe_id%>' class = 'view-links'>
-                View
-              </a>
-            </td>
+            <th>
+              Number
+            </th>
+            <th>
+              Name
+            </th>
+            <th>
+              Favourite
+            </th>
+            <th>
+              View
+            </th>
           </tr>
-        <%})%>
-      </table>
-    </div>
-  </main>
-</body>
+          <% favourite_recipes.forEach((recipe, index) => { %>
+            <tr>
+              <td>
+                <%= index + 1 %>
+              </td>
+              <td>
+                <%= recipe.name %>
+              </td>
+              <td>
+                <%if (recipe.favourite) {%>
+                  *
+                <%} %>
+              </td>
+              <td>
+                <a href = '/recipes/view/<%=recipe.recipe_id%>' class = 'view-links'>
+                  View
+                </a>
+              </td>
+            </tr>
+          <%})%>
+        </table>
+      </div>
+    </main>
+  </body>
+<%}%>
 </html>

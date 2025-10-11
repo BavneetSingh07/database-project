@@ -511,7 +511,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal Server Error');
 })
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server Listening to http://localhost:${PORT}`)
 })
