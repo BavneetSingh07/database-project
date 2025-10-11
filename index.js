@@ -5,6 +5,16 @@ const session = require('express-session');
 const Decimal = require ('decimal.js');
 const flash = require('connect-flash');
 const bcrypt = require('bcrypt');
+const MySQLStore = require('express-mysql-session')(session);
+
+const sessionStore = new MySQLStore({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
+})
+
 
 const saltRounds = 10;
 
@@ -17,6 +27,7 @@ app.use(session({
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 }
 }));
 
 function ToNullable (value){
