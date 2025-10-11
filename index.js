@@ -61,13 +61,59 @@ const db = mysql.createConnection({
   dateStrings: true
 });
 
-db.connect((err) =>{
-  if (err) {
-    console.error('Database Connection Unsuccesful');
-  } else {
-    console.log('database connected successfully');
+db.connect((err) => {
+  if (err){
+    return console.error(err.message);
   }
-  
+  console.log('Database Connected Successfully');
+
+  db.query(`
+    CREATE TABLE IF NOT EXISTS login(
+      id int unsigned NOT NULL AUTO_INCREMENT,
+      username varchar(20) NOT NULL,
+      password varchar(255) NOT NULL,
+      last_logged_in datetime DEFAULT NULL,
+      PRIMARY KEY (id),
+      UNIQUE KEY username_UNIQUE (username)
+    );
+  `, (err) => { if (err) console.error(err); });
+
+  db.query(`
+    CREATE TABLE IF NOT EXISTS userInfo (
+      id int unsigned NOT NULL,
+      first_name varchar(100) DEFAULT NULL,
+      last_name varchar(100) DEFAULT NULL,
+      date_of_birth date DEFAULT NULL,
+      email varchar(100) DEFAULT NULL,
+      address varchar(255) DEFAULT NULL,
+      PRIMARY KEY (id),
+      CONSTRAINT userinfo_ibfk_1 FOREIGN KEY (id) REFERENCES login (id)
+    );
+  `, (err) => { if (err) console.error(err); });
+
+  db.query(`
+    CREATE TABLE IF NOT EXISTS recipes (
+      recipe_id int unsigned NOT NULL AUTO_INCREMENT,
+      user_id int unsigned DEFAULT NULL,
+      name varchar(100) NOT NULL,
+      description mediumtext,
+      ingredients mediumtext,
+      instructions mediumtext,
+      prep_time int DEFAULT NULL,
+      cooking_time int DEFAULT NULL,
+      total_servings int DEFAULT NULL,
+      calories int DEFAULT NULL,
+      protein decimal(3,1) DEFAULT NULL,
+      carbohydrates decimal(3,1) DEFAULT NULL,
+      fat decimal(3,1) DEFAULT NULL,
+      favourite tinyint(1) DEFAULT '0',
+      PRIMARY KEY (recipe_id),
+      KEY recipes_ibfk_1 (user_id),
+      CONSTRAINT recipes_ibfk_1 FOREIGN KEY (user_id) REFERENCES login (id)
+    );
+  `, (err) => { if (err) console.error(err); });
+
+  console.log("Tables checked/created if missing");
 });
 
 app.set('view engine', 'ejs');
