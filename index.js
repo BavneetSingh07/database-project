@@ -278,7 +278,7 @@ app.get('/dashboard', checkUserLoggedIn, (req, res) => {
           return console.error(err.message);
         }
         console.log("LAST LOGGED IN:", res3);
-        db.query('SELECT SUM(calories) FROM RECIPES WHERE user_id = ?', [req.session.userId], (err,res4) => {
+        db.query('SELECT SUM(calories) FROM recipes WHERE user_id = ?', [req.session.userId], (err,res4) => {
           if (err){
             res.status(500).send("Internal Server Error");
             return console.error(err.message);
